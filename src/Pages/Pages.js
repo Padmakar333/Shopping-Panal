@@ -12,9 +12,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import MenuIcon from '@mui/icons-material/Menu';
+import CategoryIcon from '@mui/icons-material/Category';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import GroupIcon from '@mui/icons-material/Group';
+import { useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 const drawerWidth = 240;
 
 
@@ -23,34 +30,32 @@ const drawerWidth = 240;
         
         const [mobileOpen, setMobileOpen] = React.useState(false);
         const [isClosing, setIsClosing] = React.useState(false);
+        const navigate =useNavigate();
         const Menus =[
             {
                 name:"Dashboard",
-                Icon:<InboxIcon />
+                Icon:<InboxIcon/>,
+                route:'dashboard'
             },
             {
                 name:"Categories",
-                Icon:<InboxIcon />
+                Icon:<CategoryIcon />,
+                route:'categories'
             },
             {
                 name:"Product",
-                Icon:<InboxIcon />
+                Icon:<InventoryIcon/>,
+                route:'product'
             },
             {
                 name:"Orders",
-                Icon:<InboxIcon />
+                Icon:<ChecklistIcon/>,
+                route:'orders'
             },
             {
                 name:"Users",
-                Icon:<InboxIcon />
-            },
-            {
-                name:"Newsletters",
-                Icon:<InboxIcon />
-            },
-            {
-                name:"Settings",
-                Icon:<InboxIcon />
+                Icon:<GroupIcon />,
+                route:'users'
             }]
        
       
@@ -75,7 +80,7 @@ const drawerWidth = 240;
             <Divider />
             <List>
               {Menus.map((Menus, index) => (
-                <ListItem key={Menus.name} disablePadding>
+                <ListItem key={Menus.name} disablePadding onClick={()=>{navigate(Menus.route)}}>
                   <ListItemButton>
                     <ListItemIcon>
                       {Menus.Icon}
@@ -154,7 +159,13 @@ const drawerWidth = 240;
               sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
               <Toolbar />
-              <div>My Content</div>
+              <Routes>
+                <Route path="Dashboard" element={<div>This is Dashboard</div>}></Route>
+                <Route path="categories" element={<div>This is Categories</div>}></Route>
+                <Route path="product" element={<div>This is Product</div>}></Route>
+                <Route path="orders" element={<div>This is Orders</div>}></Route>
+                <Route path="users" element={<div>This is Users</div>}></Route>
+              </Routes>
             </Box>
           </Box>
         );
