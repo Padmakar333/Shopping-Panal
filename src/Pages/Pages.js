@@ -22,6 +22,9 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import GroupIcon from '@mui/icons-material/Group';
 import { useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Sidebar } from "./Sidebar";
+import { Maincategories } from "./categories/Maincategories";
 const drawerWidth = 240;
 
 
@@ -30,33 +33,8 @@ const drawerWidth = 240;
         
         const [mobileOpen, setMobileOpen] = React.useState(false);
         const [isClosing, setIsClosing] = React.useState(false);
-        const navigate =useNavigate();
-        const Menus =[
-            {
-                name:"Dashboard",
-                Icon:<InboxIcon/>,
-                route:'dashboard'
-            },
-            {
-                name:"Categories",
-                Icon:<CategoryIcon />,
-                route:'categories'
-            },
-            {
-                name:"Product",
-                Icon:<InventoryIcon/>,
-                route:'product'
-            },
-            {
-                name:"Orders",
-                Icon:<ChecklistIcon/>,
-                route:'orders'
-            },
-            {
-                name:"Users",
-                Icon:<GroupIcon />,
-                route:'users'
-            }]
+        
+        
        
       
         const handleDrawerClose = () => {
@@ -74,25 +52,7 @@ const drawerWidth = 240;
           }
         };
       
-        const drawer = (
-          <div>
-            <Toolbar />
-            <Divider />
-            <List>
-              {Menus.map((Menus, index) => (
-                <ListItem key={Menus.name} disablePadding onClick={()=>{navigate(Menus.route)}}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {Menus.Icon}
-                    </ListItemIcon>
-                    <ListItemText primary={Menus.name} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-            
-          </div>
-        );
+        
       
        
       
@@ -121,13 +81,14 @@ const drawerWidth = 240;
                 </Typography>
               </Toolbar>
             </AppBar>
-            <Box
+            <Sidebar drawerWidth={drawerWidth} handleDrawerTransitionEnd={handleDrawerTransitionEnd}handleDrawerClose={handleDrawerClose}mobileOpen={mobileOpen}></Sidebar>
+            {/* <Box>
               component="nav"
               sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
               aria-label="mailbox folders"
             >
               {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-              <Drawer
+              {/* <Drawer
                 
                 variant="temporary"
                 open={mobileOpen}
@@ -153,7 +114,7 @@ const drawerWidth = 240;
               >
                 {drawer}
               </Drawer>
-            </Box>
+            </Box> */ }
             <Box
               component="main"
               sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
@@ -161,7 +122,8 @@ const drawerWidth = 240;
               <Toolbar />
               <Routes>
                 <Route path="Dashboard" element={<div>This is Dashboard</div>}></Route>
-                <Route path="categories" element={<div>This is Categories</div>}></Route>
+                <Route path="categories" element={<Maincategories></Maincategories>}></Route>
+                <Route path="sub-categories" element={<div>This is SubCategories </div>}></Route>
                 <Route path="product" element={<div>This is Product</div>}></Route>
                 <Route path="orders" element={<div>This is Orders</div>}></Route>
                 <Route path="users" element={<div>This is Users</div>}></Route>
