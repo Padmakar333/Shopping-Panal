@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import { Categories } from "./categories/Categories";
 export function Sidebar({drawerWidth,handleDrawerTransitionEnd,handleDrawerClose,mobileOpen}){
     const navigate =useNavigate();
     const [ Menumapping,setmenumapping] =useState({
@@ -43,18 +44,16 @@ export function Sidebar({drawerWidth,handleDrawerTransitionEnd,handleDrawerClose
                 route:'categories',
                 children:[
                   {
-                    name:"Main Categories",
+                    name:"MainCategories",
                     Icon:<CategoryIcon />,
-                    route:'main categories'
+                    route:"categories/main-categories",
                   },
                   {
                     name:"SubCategories",
                     Icon:<CategoryIcon />,
-                    route:'subcategories'
+                    route:"categories/sub-categories",
                   }
-                ]
-
-                
+                ]   
             },
             {
                 name:"Product",
@@ -78,7 +77,17 @@ export function Sidebar({drawerWidth,handleDrawerTransitionEnd,handleDrawerClose
           <List>
             
             {Menus.map((Menus, index) => (
-              <>
+
+              
+               <Fragment key={index}>
+            <ListItem
+              key={Menus.name}
+              disablePadding
+              onClick={() => {
+                navigate(Menus.route);
+              }}
+              >
+            </ListItem>
               <ListItem key={Menus.name} disablePadding onClick={()=>{navigate(Menus.route)}}>
                 <ListItemButton onClick={()=> {
                     Menumapping[Menus.name]=!Menumapping[Menus.name];
@@ -95,15 +104,15 @@ export function Sidebar({drawerWidth,handleDrawerTransitionEnd,handleDrawerClose
                 return (
                   <ListItem key={child.name} disablePadding onClick={()=>{navigate(child.route)}}>
                 <ListItemButton>
-                  <ListItemIcon>
+                  {/* <ListItemIcon>
                     {child.Icon}
-                  </ListItemIcon>
+                  </ListItemIcon> */}
                   <ListItemText primary={child.name} />
                 </ListItemButton>
               </ListItem>
                 )
               })}
-            </>
+             </Fragment>
             ))}
           </List>
           
@@ -142,6 +151,7 @@ export function Sidebar({drawerWidth,handleDrawerTransitionEnd,handleDrawerClose
               >
                 {drawer}
               </Drawer>
+              
             </Box>
     )
 }

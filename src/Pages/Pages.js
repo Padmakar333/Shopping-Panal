@@ -25,6 +25,11 @@ import { Route, Routes } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Sidebar } from "./Sidebar";
 import { Maincategories } from "./categories/Maincategories";
+import { Categories } from "./categories/Categories";
+import { Header } from "./Header";
+
+
+
 const drawerWidth = 240;
 
 
@@ -59,7 +64,7 @@ const drawerWidth = 240;
         return (
           <Box sx={{ display: 'flex' }}>
             {/* <CssBaseline /> */}
-            <AppBar
+            {/* <AppBar
               position="fixed"
               sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
@@ -80,12 +85,17 @@ const drawerWidth = 240;
                   Responsive drawer
                 </Typography>
               </Toolbar>
-            </AppBar>
-            <Sidebar drawerWidth={drawerWidth} handleDrawerTransitionEnd={handleDrawerTransitionEnd}handleDrawerClose={handleDrawerClose}mobileOpen={mobileOpen}></Sidebar>
+            </AppBar> */}
+            <Header
+        drawerWidth={drawerWidth}
+        handleDrawerToggle={handleDrawerToggle}
+      ></Header>
+           
+            <Sidebar drawerWidth={drawerWidth} handleDrawerTransitionEnd={handleDrawerTransitionEnd}handleDrawerClose={handleDrawerClose}  mobileOpen={mobileOpen}></Sidebar>
             {/* <Box>
               component="nav"
               sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-              aria-label="mailbox folders"
+              aria-label="mailbox folders" 
             >
               {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
               {/* <Drawer
@@ -122,8 +132,10 @@ const drawerWidth = 240;
               <Toolbar />
               <Routes>
                 <Route path="Dashboard" element={<div>This is Dashboard</div>}></Route>
-                <Route path="categories" element={<Maincategories></Maincategories>}></Route>
-                <Route path="sub-categories" element={<div>This is SubCategories </div>}></Route>
+                <Route path="categories/*" element={<Categories></Categories>}></Route>
+                
+                
+                
                 <Route path="product" element={<div>This is Product</div>}></Route>
                 <Route path="orders" element={<div>This is Orders</div>}></Route>
                 <Route path="users" element={<div>This is Users</div>}></Route>
